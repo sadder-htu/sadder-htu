@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       # A PAT is required: the default GITHUB_TOKEN is scoped to this repository
       # alone and cannot see contributions in your other private repos, which

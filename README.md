@@ -38,9 +38,9 @@ scraped off my public profile.
 
 | Window | Commits | PRs opened | PRs merged | Issues closed | Reviews | Repos touched |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| **This week** | 107 | 38 | 39 | 21 | 0 | 5 |
-| **This month** | 229 | 54 | 54 | 48 | 0 | 7 |
-| **Last 12 months** | 1426 | 417 | 401 | 198 | 12 | 11 |
+| **This week** | 111 | 39 | 40 | 21 | 0 | 5 |
+| **This month** | 233 | 55 | 55 | 48 | 0 | 7 |
+| **Last 12 months** | 1430 | 418 | 402 | 198 | 12 | 11 |
 
 <samp>
 
@@ -57,18 +57,50 @@ CONTRIBUTIONS — LAST 12 WEEKS
 07-19  █████████████████░░░░░░░   287
 07-26  ████████████████████████   402
 08-02  ████████░░░░░░░░░░░░░░░░   136
-08-09  ███████████░░░░░░░░░░░░░   191
+08-09  ████████████░░░░░░░░░░░░   196
 ```
 
 </samp>
 
 | 🔥 Current streak | 🏆 Longest streak | ⚔️ Best day | 📅 Active days (1y) | Σ Contributions (1y) |
 | :---: | :---: | :---: | :---: | :---: |
-| **3** days | **13** days | **169** on 2026-07-26 | **80** / 365 | **2088** |
+| **3** days | **13** days | **169** on 2026-07-26 | **80** / 365 | **2093** |
 
-<sub>Auto-generated from the GitHub GraphQL API — private repositories included. Last muster: 2026-08-13 14:40 UTC.</sub>
+### 🏹 Delivery speed
+
+| Median time to merge | p90 | Merged within a day | Sample |
+| :---: | :---: | :---: | :---: |
+| **6 min** | 3.4 h | 98% | 400 of 400 PRs, last 90d |
+
+### 🗡️ Languages
+
+<samp>
+
+```text
+Python       ██████████░░░░░░░░░░   52.2%
+TypeScript   ██████░░░░░░░░░░░░░░   32.2%
+HTML         █░░░░░░░░░░░░░░░░░░░    7.3%
+CSS          ░░░░░░░░░░░░░░░░░░░░    2.3%
+JavaScript   ░░░░░░░░░░░░░░░░░░░░    1.9%
+Shell        ░░░░░░░░░░░░░░░░░░░░    1.4%
+```
+
+</samp>
+
+<sub>Weighted by share of commits per repository, not raw bytes — a repo touched once
+should not outrank one worked in daily.</sub>
+
+<sub>Auto-generated from the GitHub GraphQL API — private repositories included, names withheld. Last muster: 2026-08-13 15:01 UTC.</sub>
 
 <!--END:BATTLE_LOG-->
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sadder-htu/sadder-htu/output/snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/sadder-htu/sadder-htu/output/snake.svg" />
+    <img alt="A snake consuming the contribution graph" src="https://raw.githubusercontent.com/sadder-htu/sadder-htu/output/snake.svg" width="100%" />
+  </picture>
+</div>
 
 ---
 
