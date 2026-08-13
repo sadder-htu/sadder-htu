@@ -1,0 +1,59 @@
+name: Battle Log
+
+on:
+  schedule:
+    # 03:00 UTC daily — 06:00 in Amman.
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/kpi.mjs"
+      - ".github/workflows/battle-log.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: battle-log
+  cancel-in-progress: false
+
+jobs:
+  muster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # A PAT is required: the default GITHUB_TOKEN is scoped to this repository
+      # alone and cannot see contributions in your other private repos, which
+      # would silently publish numbers far below the real ones.
+      - name: Verify token
+        env:
+          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+        run: |
+          if [ -z "$METRICS_TOKEN" ]; then
+            echo "::error::METRICS_TOKEN secret is not set. Create a classic PAT with 'repo' + 'read:user' scopes and add it as METRICS_TOKEN."
+            exit 1
+          fi
+
+      - name: Generate Battle Log
+        env:
+          GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
+          GH_LOGIN: ${{ github.repository_owner }}
+        run: node scripts/kpi.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet README.md; then
+            echo "No change — standing down."
+          else
+            git add README.md
+            git commit -m "chore: update Battle Log"
+            git push
+          fi
