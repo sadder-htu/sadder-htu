@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://mahmoudsadder.me/#contact"><img src="https://img.shields.io/badge/Get%20in%20touch-8B0000?style=for-the-badge&logo=firefoxbrowser&logoColor=white&labelColor=0d1117" alt="Contact" /></a>
+  <a href="mailto:mahmouds4dr@gmail.com"><img src="https://img.shields.io/badge/mahmouds4dr@gmail.com-8B0000?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email" /></a>
   <a href="https://www.linkedin.com/in/mahmoud-sadder/"><img src="https://img.shields.io/badge/LinkedIn-8B0000?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0d1117" alt="LinkedIn" /></a>
   <a href="https://github.com/mahmoud-sadder"><img src="https://img.shields.io/badge/@mahmoud--sadder-8B0000?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="Main account" /></a>
   <img src="https://img.shields.io/badge/Amman,%20Jordan-8B0000?style=for-the-badge&logo=googlemaps&logoColor=white&labelColor=0d1117" alt="Amman, Jordan" />
@@ -20,33 +20,45 @@
 
 <br />
 
-## About
-
-I build and secure AI systems for the public sector — LLM deployment and RAG
-pipelines on one side, penetration testing and SOC operations on the other.
-Currently a **9xAI Fellow**.
-
-
-<br />
-
 ## Battle Log
 
 <!--START:BATTLE_LOG-->
 
 <p align="center">
-  <img src="https://img.shields.io/badge/commits-1,435-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,435" />
-  <img src="https://img.shields.io/badge/pull%20requests-402-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 402" />
+  <img src="https://img.shields.io/badge/commits-1,439-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,439" />
+  <img src="https://img.shields.io/badge/pull%20requests-403-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 403" />
   <img src="https://img.shields.io/badge/issues%20closed-198-8B0000?style=for-the-badge&labelColor=0d1117" alt="issues closed: 198" />
   <img src="https://img.shields.io/badge/streak-3d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 3d" />
 </p>
 
 | | Commits | PRs opened | PRs merged | Issues closed | Repos |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| **This week** | 116 | 39 | 40 | 21 | 5 |
-| **This month** | 238 | 55 | 55 | 48 | 7 |
-| **Last 12 months** | 1,435 | 418 | 402 | 198 | 11 |
+| **This week** | 120 | 40 | 41 | 21 | 5 |
+| **This month** | 242 | 56 | 56 | 48 | 7 |
+| **Last 12 months** | 1,439 | 419 | 403 | 198 | 11 |
 
+<samp>
 
+```text
+05-24  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░     3
+05-31  █████░░░░░░░░░░░░░░░░░░░░░░░    65
+06-07  ███░░░░░░░░░░░░░░░░░░░░░░░░░    48
+06-14  ████████████████████░░░░░░░░   288
+06-21  ████████░░░░░░░░░░░░░░░░░░░░   120
+06-28  █████████░░░░░░░░░░░░░░░░░░░   134
+07-05  ███████████░░░░░░░░░░░░░░░░░   163
+07-12  █████████████░░░░░░░░░░░░░░░   190
+07-19  ████████████████████░░░░░░░░   287
+07-26  ████████████████████████████   402
+08-02  █████████░░░░░░░░░░░░░░░░░░░   136
+08-09  ██████████████░░░░░░░░░░░░░░   206
+```
+
+</samp>
+
+<p align="center">
+  <sub>Pulled from the GitHub API, private repositories included. Updated 2026-08-13 15:32 UTC.</sub>
+</p>
 
 <!--END:BATTLE_LOG-->
 
@@ -67,4 +79,14 @@ Currently a **9xAI Fellow**.
   <img src="https://img.shields.io/badge/RAG%20Pipelines-0d1117?style=for-the-badge&logo=databricks&logoColor=FF3621" alt="RAG Pipelines" />
   <img src="https://img.shields.io/badge/Penetration%20Testing-0d1117?style=for-the-badge&logo=kalilinux&logoColor=557C94" alt="Penetration Testing" />
   <img src="https://img.shields.io/badge/SOC%20Operations-0d1117?style=for-the-badge&logo=splunk&logoColor=EA3B21" alt="SOC Operations" />
+</p>
+
+---
+
+<p align="center">
+  <a href="https://mahmoudsadder.me"><img src="https://img.shields.io/badge/View%20my%20work-8B0000?style=for-the-badge&logo=safari&logoColor=white&labelColor=0d1117" alt="Portfolio" /></a>
+</p>
+
+<p align="center">
+  <sub>Selected projects and case studies at <a href="https://mahmoudsadder.me">mahmoudsadder.me</a></sub>
 </p>
