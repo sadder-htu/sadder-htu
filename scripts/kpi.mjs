@@ -126,23 +126,6 @@ for (let i = days.length - 1; i >= 0; i--) {
   else break;
 }
 
-// ---------------------------------------------------------------- 12-week chart
-
-const weeks = u.year.contributionCalendar.weeks.slice(-12).map((w) => ({
-  label: w.contributionDays[0].date.slice(5),
-  total: w.contributionDays
-    .filter((x) => x.date <= day(now))
-    .reduce((s, x) => s + x.contributionCount, 0),
-}));
-
-const peak = Math.max(...weeks.map((w) => w.total), 1);
-const chart = weeks
-  .map((w) => {
-    const filled = Math.round((w.total / peak) * 28);
-    return `${w.label}  ${"█".repeat(filled)}${"░".repeat(28 - filled)}  ${String(w.total).padStart(4)}`;
-  })
-  .join("\n");
-
 // ---------------------------------------------------------------- render
 
 // shields.io reserves - and _ , so they need doubling.
@@ -191,8 +174,6 @@ const table = [
   ),
 ].join("\n");
 
-const stamp = now.toISOString().slice(0, 16).replace("T", " ");
-
 const block = `${START}
 
 <p align="center">
@@ -200,18 +181,6 @@ const block = `${START}
 </p>
 
 ${table}
-
-<samp>
-
-\`\`\`text
-${chart}
-\`\`\`
-
-</samp>
-
-<p align="center">
-  <sub>Pulled from the GitHub API, private repositories included. Updated ${stamp} UTC.</sub>
-</p>
 
 ${END}`;
 
