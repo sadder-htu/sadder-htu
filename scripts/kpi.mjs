@@ -41,17 +41,12 @@ const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)
 const yearStart = new Date(now);
 yearStart.setUTCFullYear(now.getUTCFullYear() - 1);
 
-// Delivery-speed sample window.
-const cycleStart = new Date(now);
-cycleStart.setUTCDate(now.getUTCDate() - 90);
-
 // ---------------------------------------------------------------- graphql
 
 const QUERY = `
 query($login:String!, $wFrom:DateTime!, $mFrom:DateTime!, $yFrom:DateTime!, $now:DateTime!,
       $pw:String!, $pm:String!, $py:String!, $iw:String!, $im:String!, $iy:String!) {
   user(login:$login) {
-    name
     week:  contributionsCollection(from:$wFrom, to:$now) { ...C }
     month: contributionsCollection(from:$mFrom, to:$now) { ...C }
     year:  contributionsCollection(from:$yFrom, to:$now) {
@@ -59,14 +54,6 @@ query($login:String!, $wFrom:DateTime!, $mFrom:DateTime!, $yFrom:DateTime!, $now
       contributionCalendar {
         totalContributions
         weeks { contributionDays { date contributionCount } }
-      }
-      commitContributionsByRepository(maxRepositories:100) {
-        contributions { totalCount }
-        repository {
-          languages(first:10, orderBy:{field:SIZE, direction:DESC}) {
-            edges { size node { name } }
-          }
-        }
       }
     }
   }
@@ -80,8 +67,6 @@ query($login:String!, $wFrom:DateTime!, $mFrom:DateTime!, $yFrom:DateTime!, $now
 fragment C on ContributionsCollection {
   totalCommitContributions
   totalPullRequestContributions
-  totalIssueContributions
-  totalPullRequestReviewContributions
   totalRepositoriesWithContributedCommits
 }`;
 
@@ -127,102 +112,19 @@ const d = await gql(QUERY, {
 });
 const u = d.user;
 
-// ---------------------------------------------------------------- delivery speed
-
-// Search caps at 100 nodes per page, so walk pages until the window is covered.
-const CYCLE_QUERY = `
-query($q:String!, $after:String) {
-  search(query:$q, type:ISSUE, first:100, after:$after) {
-    issueCount
-    pageInfo { hasNextPage endCursor }
-    nodes { ... on PullRequest { createdAt mergedAt } }
-  }
-}`;
-
-const cycleHours = [];
-let cursor = null;
-let cycleTotal = 0;
-for (let page = 0; page < 5; page++) {
-  const r = await gql(CYCLE_QUERY, { q: merged(day(cycleStart)), after: cursor });
-  cycleTotal = r.search.issueCount;
-  for (const n of r.search.nodes) {
-    if (!n?.createdAt || !n?.mergedAt) continue;
-    const h = (Date.parse(n.mergedAt) - Date.parse(n.createdAt)) / 3.6e6;
-    if (h >= 0) cycleHours.push(h);
-  }
-  if (!r.search.pageInfo.hasNextPage) break;
-  cursor = r.search.pageInfo.endCursor;
-}
-
-cycleHours.sort((a, b) => a - b);
-const pct = (p) =>
-  cycleHours.length ? cycleHours[Math.min(cycleHours.length - 1, Math.floor(cycleHours.length * p))] : 0;
-
-const dur = (h) =>
-  h < 1 ? `${Math.round(h * 60)} min` : h < 48 ? `${h.toFixed(1)} h` : `${(h / 24).toFixed(1)} d`;
-
-const sameDay = cycleHours.length
-  ? Math.round((100 * cycleHours.filter((h) => h < 24).length) / cycleHours.length)
-  : 0;
-
-// ---------------------------------------------------------------- language mix
-
-// Weight each repository's language mix by this author's share of commits in it.
-// Raw byte totals would let a repo touched once outweigh one worked in daily.
-const langWeight = new Map();
-const repos = u.year.commitContributionsByRepository ?? [];
-const commitTotal = repos.reduce((s, r) => s + r.contributions.totalCount, 0) || 1;
-
-for (const r of repos) {
-  const edges = r.repository.languages?.edges ?? [];
-  const repoBytes = edges.reduce((s, e) => s + e.size, 0);
-  if (!repoBytes) continue;
-  const share = r.contributions.totalCount / commitTotal;
-  for (const e of edges) {
-    const w = (e.size / repoBytes) * share;
-    langWeight.set(e.node.name, (langWeight.get(e.node.name) ?? 0) + w);
-  }
-}
-
-const langTotal = [...langWeight.values()].reduce((s, v) => s + v, 0) || 1;
-const langs = [...langWeight.entries()]
-  .map(([name, w]) => ({ name, pct: (100 * w) / langTotal }))
-  .sort((a, b) => b.pct - a.pct)
-  .slice(0, 6);
-
-const langChart = langs
-  .map((l) => {
-    const filled = Math.round((l.pct / 100) * 20);
-    return `${l.name.padEnd(12)} ${"█".repeat(filled)}${"░".repeat(20 - filled)}  ${l.pct.toFixed(1).padStart(5)}%`;
-  })
-  .join("\n");
-
-// ---------------------------------------------------------------- streaks
+// ---------------------------------------------------------------- streak
 
 const days = u.year.contributionCalendar.weeks
   .flatMap((w) => w.contributionDays)
   .filter((x) => x.date <= day(now));
 
-let longest = 0;
-let run = 0;
-for (const x of days) {
-  run = x.contributionCount > 0 ? run + 1 : 0;
-  if (run > longest) longest = run;
-}
-
-// Current streak walks backwards; today counting as 0 does not break it yet.
+// Walks backwards; today counting as 0 does not break the streak yet.
 let current = 0;
 for (let i = days.length - 1; i >= 0; i--) {
   if (days[i].contributionCount > 0) current++;
   else if (i === days.length - 1) continue;
   else break;
 }
-
-const best = days.reduce(
-  (a, b) => (b.contributionCount > a.contributionCount ? b : a),
-  { date: "-", contributionCount: 0 },
-);
-const active = days.filter((x) => x.contributionCount > 0).length;
 
 // ---------------------------------------------------------------- 12-week chart
 
@@ -236,45 +138,55 @@ const weeks = u.year.contributionCalendar.weeks.slice(-12).map((w) => ({
 const peak = Math.max(...weeks.map((w) => w.total), 1);
 const chart = weeks
   .map((w) => {
-    const filled = Math.round((w.total / peak) * 24);
-    const bar = "█".repeat(filled) + "░".repeat(24 - filled);
-    return `${w.label}  ${bar}  ${String(w.total).padStart(4)}`;
+    const filled = Math.round((w.total / peak) * 28);
+    return `${w.label}  ${"█".repeat(filled)}${"░".repeat(28 - filled)}  ${String(w.total).padStart(4)}`;
   })
   .join("\n");
 
 // ---------------------------------------------------------------- render
 
-const row = (label, c, prOpen, prMerged, iss, rev, repos) =>
-  `| **${label}** | ${c} | ${prOpen} | ${prMerged} | ${iss} | ${rev} | ${repos} |`;
+// shields.io reserves - and _ , so they need doubling.
+const enc = (s) =>
+  String(s).replace(/-/g, "--").replace(/_/g, "__").replace(/ /g, "%20");
+
+const badge = (label, value) =>
+  `<img src="https://img.shields.io/badge/${enc(label)}-${enc(value)}-8B0000?style=for-the-badge&labelColor=0d1117" alt="${label}: ${value}" />`;
+
+const stats = [
+  badge("commits", u.year.totalCommitContributions.toLocaleString()),
+  badge("pull requests", d.prMergedYear.issueCount.toLocaleString()),
+  badge("issues closed", d.issClosedYear.issueCount.toLocaleString()),
+  badge("streak", `${current}d`),
+].join("\n  ");
+
+const row = (label, c, prOpen, prMerged, iss, repos) =>
+  `| ${label} | ${c.toLocaleString()} | ${prOpen} | ${prMerged} | ${iss} | ${repos} |`;
 
 const table = [
-  "| Window | Commits | PRs opened | PRs merged | Issues closed | Reviews | Repos touched |",
-  "| :--- | ---: | ---: | ---: | ---: | ---: | ---: |",
+  "| | Commits | PRs opened | PRs merged | Issues closed | Repos |",
+  "| :--- | ---: | ---: | ---: | ---: | ---: |",
   row(
-    "This week",
+    "**This week**",
     u.week.totalCommitContributions,
     u.week.totalPullRequestContributions,
     d.prMergedWeek.issueCount,
     d.issClosedWeek.issueCount,
-    u.week.totalPullRequestReviewContributions,
     u.week.totalRepositoriesWithContributedCommits,
   ),
   row(
-    "This month",
+    "**This month**",
     u.month.totalCommitContributions,
     u.month.totalPullRequestContributions,
     d.prMergedMonth.issueCount,
     d.issClosedMonth.issueCount,
-    u.month.totalPullRequestReviewContributions,
     u.month.totalRepositoriesWithContributedCommits,
   ),
   row(
-    "Last 12 months",
+    "**Last 12 months**",
     u.year.totalCommitContributions,
     u.year.totalPullRequestContributions,
     d.prMergedYear.issueCount,
     d.issClosedYear.issueCount,
-    u.year.totalPullRequestReviewContributions,
     u.year.totalRepositoriesWithContributedCommits,
   ),
 ].join("\n");
@@ -283,41 +195,23 @@ const stamp = now.toISOString().slice(0, 16).replace("T", " ");
 
 const block = `${START}
 
+<p align="center">
+  ${stats}
+</p>
+
 ${table}
 
 <samp>
 
 \`\`\`text
-CONTRIBUTIONS — LAST 12 WEEKS
 ${chart}
 \`\`\`
 
 </samp>
 
-| 🔥 Current streak | 🏆 Longest streak | ⚔️ Best day | 📅 Active days (1y) | Σ Contributions (1y) |
-| :---: | :---: | :---: | :---: | :---: |
-| **${current}** days | **${longest}** days | **${best.contributionCount}** on ${best.date} | **${active}** / 365 | **${u.year.contributionCalendar.totalContributions}** |
-
-### 🏹 Delivery speed
-
-| Median time to merge | p90 | Merged within a day | Sample |
-| :---: | :---: | :---: | :---: |
-| **${dur(pct(0.5))}** | ${dur(pct(0.9))} | ${sameDay}% | ${cycleHours.length} of ${cycleTotal} PRs, last 90d |
-
-### 🗡️ Languages
-
-<samp>
-
-\`\`\`text
-${langChart}
-\`\`\`
-
-</samp>
-
-<sub>Weighted by share of commits per repository, not raw bytes — a repo touched once
-should not outrank one worked in daily.</sub>
-
-<sub>Auto-generated from the GitHub GraphQL API — private repositories included, names withheld. Last muster: ${stamp} UTC.</sub>
+<p align="center">
+  <sub>Pulled from the GitHub API, private repositories included. Updated ${stamp} UTC.</sub>
+</p>
 
 ${END}`;
 
@@ -330,4 +224,4 @@ if (s === -1 || e === -1) {
 }
 
 await writeFile(README, md.slice(0, s) + block + md.slice(e + END.length), "utf8");
-console.log(`Battle Log updated — ${u.year.contributionCalendar.totalContributions} contributions, streak ${current}d.`);
+console.log(`Battle Log updated — ${u.year.totalCommitContributions} commits, streak ${current}d.`);
