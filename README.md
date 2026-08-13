@@ -24,11 +24,8 @@
 
 I build and secure AI systems for the public sector — LLM deployment and RAG
 pipelines on one side, penetration testing and SOC operations on the other.
-Currently a **9xAI Fellow**, working out of Amman on traffic intelligence and
-government digital twins.
+Currently a **9xAI Fellow**.
 
-Most of what I ship lives in private repositories. The numbers below come
-straight from the GitHub API rather than from what a public scraper can see.
 
 <br />
 
@@ -49,28 +46,7 @@ straight from the GitHub API rather than from what a public scraper can see.
 | **This month** | 238 | 55 | 55 | 48 | 7 |
 | **Last 12 months** | 1,435 | 418 | 402 | 198 | 11 |
 
-<samp>
 
-```text
-05-24  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░     3
-05-31  █████░░░░░░░░░░░░░░░░░░░░░░░    65
-06-07  ███░░░░░░░░░░░░░░░░░░░░░░░░░    48
-06-14  ████████████████████░░░░░░░░   288
-06-21  ████████░░░░░░░░░░░░░░░░░░░░   120
-06-28  █████████░░░░░░░░░░░░░░░░░░░   134
-07-05  ███████████░░░░░░░░░░░░░░░░░   163
-07-12  █████████████░░░░░░░░░░░░░░░   190
-07-19  ████████████████████░░░░░░░░   287
-07-26  ████████████████████████████   402
-08-02  █████████░░░░░░░░░░░░░░░░░░░   136
-08-09  ██████████████░░░░░░░░░░░░░░   201
-```
-
-</samp>
-
-<p align="center">
-  <sub>Pulled from the GitHub API, private repositories included. Updated 2026-08-13 15:18 UTC.</sub>
-</p>
 
 <!--END:BATTLE_LOG-->
 
