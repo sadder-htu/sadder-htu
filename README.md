@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/spartan-banner-wide.jpg" alt="" width="100%" />
+  <img src="assets/spartan-banner.jpg" alt="" width="100%" />
 </div>
 
 <h1 align="center">Mahmoud Al-Sadder</h1>
