@@ -28,7 +28,7 @@
   <img src="https://img.shields.io/badge/commits-1,461-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,461" />
   <img src="https://img.shields.io/badge/pull%20requests-411-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 411" />
   <img src="https://img.shields.io/badge/issues%20closed-198-8B0000?style=for-the-badge&labelColor=0d1117" alt="issues closed: 198" />
-  <img src="https://img.shields.io/badge/streak-4d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 4d" />
+  <img src="https://img.shields.io/badge/streak-0d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 0d" />
 </p>
 
 | | Commits | PRs opened | PRs merged | Issues closed | Repos |
