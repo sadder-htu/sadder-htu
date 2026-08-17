@@ -25,17 +25,17 @@
 <!--START:BATTLE_LOG-->
 
 <p align="center">
-  <img src="https://img.shields.io/badge/commits-1,461-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,461" />
-  <img src="https://img.shields.io/badge/pull%20requests-411-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 411" />
-  <img src="https://img.shields.io/badge/issues%20closed-198-8B0000?style=for-the-badge&labelColor=0d1117" alt="issues closed: 198" />
-  <img src="https://img.shields.io/badge/streak-0d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 0d" />
+  <img src="https://img.shields.io/badge/commits-1,488-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,488" />
+  <img src="https://img.shields.io/badge/pull%20requests-421-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 421" />
+  <img src="https://img.shields.io/badge/issues%20closed-203-8B0000?style=for-the-badge&labelColor=0d1117" alt="issues closed: 203" />
+  <img src="https://img.shields.io/badge/streak-6d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 6d" />
 </p>
 
 | | Commits | PRs opened | PRs merged | Issues closed | Repos |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| **This week** | 142 | 48 | 49 | 21 | 5 |
-| **This month** | 264 | 64 | 64 | 48 | 7 |
-| **Last 12 months** | 1,461 | 426 | 411 | 198 | 11 |
+| **This week** | 0 | 0 | 0 | 0 | 0 |
+| **This month** | 291 | 74 | 74 | 53 | 7 |
+| **Last 12 months** | 1,488 | 436 | 421 | 203 | 11 |
 
 <!--END:BATTLE_LOG-->
 
