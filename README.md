@@ -25,7 +25,7 @@
 <!--START:BATTLE_LOG-->
 
 <p align="center">
-  <img src="https://img.shields.io/badge/commits-1,500-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,500" />
+  <img src="https://img.shields.io/badge/commits-1,526-8B0000?style=for-the-badge&labelColor=0d1117" alt="commits: 1,526" />
   <img src="https://img.shields.io/badge/pull%20requests-421-8B0000?style=for-the-badge&labelColor=0d1117" alt="pull requests: 421" />
   <img src="https://img.shields.io/badge/issues%20closed-204-8B0000?style=for-the-badge&labelColor=0d1117" alt="issues closed: 204" />
   <img src="https://img.shields.io/badge/streak-0d-8B0000?style=for-the-badge&labelColor=0d1117" alt="streak: 0d" />
@@ -34,8 +34,8 @@
 | | Commits | PRs opened | PRs merged | Issues closed | Repos |
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | **This week** | 0 | 0 | 0 | 0 | 0 |
-| **This month** | 303 | 75 | 74 | 54 | 8 |
-| **Last 12 months** | 1,500 | 437 | 421 | 204 | 12 |
+| **This month** | 329 | 75 | 74 | 54 | 8 |
+| **Last 12 months** | 1,526 | 437 | 421 | 204 | 12 |
 
 <!--END:BATTLE_LOG-->
 
